@@ -2,30 +2,20 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="description" content="لوحة تحكم الطالب - جامعة ماجد الشعباني">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>لوحة الطالب | MGU - جامعة ماجد الشعباني</title>
-    
-    <!-- Preconnect للتحميل السريع -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <style>
         :root {
-            /* الألوان الأساسية */
             --primary: #4f46e5;
-            --primary-light: #6366f1;
             --secondary: #7c3aed;
             --accent: #ec4899;
             --success: #10b981;
             --warning: #f59e0b;
             --danger: #ef4444;
             
-            /* ألوان الواجهة */
             --bg-primary: #f8fafc;
             --bg-secondary: #f1f5f9;
             --bg-card: rgba(255, 255, 255, 0.95);
@@ -34,25 +24,6 @@
             --border-color: rgba(148, 163, 184, 0.2);
             --shadow: rgba(0, 0, 0, 0.06);
             --shadow-lg: rgba(0, 0, 0, 0.1);
-            
-            /* متغيرات مرنة للأحجام */
-            --sidebar-width: clamp(250px, 25vw, 300px);
-            --header-height: clamp(60px, 10vh, 80px);
-            --border-radius: clamp(12px, 2vw, 24px);
-            --spacing-unit: clamp(0.5rem, 2vw, 1rem);
-        }
-
-        /* الوضع الداكن */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-primary: #0f172a;
-                --bg-secondary: #1e293b;
-                --bg-card: rgba(30, 41, 59, 0.95);
-                --text-primary: #f8fafc;
-                --text-secondary: #94a3b8;
-                --border-color: rgba(148, 163, 184, 0.1);
-                --shadow: rgba(0, 0, 0, 0.3);
-            }
         }
 
         * {
@@ -60,12 +31,11 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
-            -webkit-tap-highlight-color: transparent;
         }
 
         html {
             scroll-behavior: smooth;
-            font-size: clamp(14px, 1.5vw, 18px);
+            font-size: 16px;
         }
 
         body {
@@ -73,15 +43,9 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* تحسينات للمس */
-        button, a, input {
-            touch-action: manipulation;
-        }
-
-        /* الخلفية المتحركة */
+        /* Background */
         .bg-blobs {
             position: fixed;
             top: 0;
@@ -102,19 +66,19 @@
         }
 
         .blob-1 {
-            width: min(400px, 40vw);
-            height: min(400px, 40vw);
+            width: 400px;
+            height: 400px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.4), rgba(124, 58, 237, 0.3));
-            top: -10%;
-            right: -5%;
+            top: -100px;
+            right: -50px;
         }
 
         .blob-2 {
-            width: min(350px, 35vw);
-            height: min(350px, 35vw);
+            width: 350px;
+            height: 350px;
             background: linear-gradient(135deg, rgba(236, 72, 153, 0.3), rgba(245, 158, 11, 0.2));
-            bottom: -10%;
-            left: -5%;
+            bottom: -100px;
+            left: -50px;
             animation-delay: -5s;
         }
 
@@ -123,7 +87,7 @@
             50% { transform: translate(30px, -30px) scale(1.05); }
         }
 
-        /* النافذة المنبثقة */
+        /* Modal */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -136,10 +100,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: clamp(1rem, 5vw, 2rem);
+            padding: 1rem;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .modal-overlay.active {
@@ -149,15 +113,15 @@
 
         .modal {
             background: var(--bg-card);
-            border-radius: var(--border-radius);
-            padding: clamp(1.5rem, 5vw, 3rem);
-            max-width: min(900px, 95vw);
+            border-radius: 32px;
+            padding: 3rem;
+            max-width: 900px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
             transform: scale(0.9) translateY(20px);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s;
             border: 1px solid var(--border-color);
         }
 
@@ -167,11 +131,11 @@
 
         .modal-header {
             text-align: center;
-            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 2.5rem;
         }
 
         .modal-title {
-            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-size: 2rem;
             font-weight: 900;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
@@ -179,20 +143,20 @@
 
         .modal-subtitle {
             color: var(--text-secondary);
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-size: 1.1rem;
         }
 
         .majors-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-            gap: clamp(1rem, 3vw, 1.5rem);
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
         }
 
         .major-card {
-            background: var(--bg-card);
+            background: white;
             border: 2px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: clamp(1.25rem, 4vw, 2rem);
+            border-radius: 24px;
+            padding: 2rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -237,16 +201,16 @@
         }
 
         .major-icon {
-            width: clamp(60px, 15vw, 80px);
-            height: clamp(60px, 15vw, 80px);
-            border-radius: clamp(16px, 4vw, 24px);
+            width: 80px;
+            height: 80px;
+            border-radius: 24px;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(124, 58, 237, 0.1));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-size: 2.5rem;
             color: var(--primary);
-            margin: 0 auto clamp(1rem, 3vw, 1.5rem);
+            margin: 0 auto 1.5rem;
             transition: all 0.3s;
         }
 
@@ -258,14 +222,14 @@
         }
 
         .major-title {
-            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            font-size: 1.3rem;
             font-weight: 800;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
 
         .major-desc {
-            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+            font-size: 0.95rem;
             color: var(--text-secondary);
             line-height: 1.6;
         }
@@ -277,19 +241,18 @@
 
         .btn-confirm {
             width: 100%;
-            margin-top: clamp(1.5rem, 4vw, 2rem);
-            padding: clamp(1rem, 3vw, 1.25rem);
+            margin-top: 2rem;
+            padding: 1.25rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
             border-radius: 16px;
-            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            font-size: 1.1rem;
             font-weight: 800;
             cursor: pointer;
             transition: all 0.3s;
             opacity: 0.5;
             pointer-events: none;
-            min-height: 48px;
         }
 
         .btn-confirm.active {
@@ -302,12 +265,12 @@
             box-shadow: 0 10px 30px rgba(79, 70, 229, 0.4);
         }
 
-        /* قسم المقررات */
+        /* Courses Section */
         .courses-section {
             background: var(--bg-card);
-            border-radius: var(--border-radius);
-            padding: clamp(1.25rem, 4vw, 2rem);
-            margin-bottom: clamp(1rem, 3vw, 2rem);
+            border-radius: 24px;
+            padding: 2rem;
+            margin-bottom: 2rem;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 20px var(--shadow);
         }
@@ -316,13 +279,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(1.25rem, 4vw, 2rem);
+            margin-bottom: 2rem;
             flex-wrap: wrap;
             gap: 1rem;
         }
 
         .courses-title {
-            font-size: clamp(1.25rem, 4vw, 1.5rem);
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--text-primary);
             display: flex;
@@ -335,7 +298,7 @@
         }
 
         .btn-change-major {
-            padding: clamp(0.6rem, 2vw, 0.75rem) clamp(1rem, 3vw, 1.5rem);
+            padding: 0.75rem 1.5rem;
             background: rgba(79, 70, 229, 0.1);
             border: 1px solid rgba(79, 70, 229, 0.2);
             color: var(--primary);
@@ -346,8 +309,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: clamp(0.85rem, 2vw, 1rem);
-            min-height: 44px;
         }
 
         .btn-change-major:hover {
@@ -358,16 +319,16 @@
 
         .courses-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-            gap: clamp(1rem, 3vw, 1.5rem);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
         .course-card {
-            background: var(--bg-card);
+            background: white;
             border: 2px solid var(--border-color);
-            border-radius: clamp(16px, 3vw, 20px);
-            padding: clamp(1.25rem, 4vw, 1.75rem);
-            transition: all 0.4s ease;
+            border-radius: 20px;
+            padding: 1.75rem;
+            transition: all 0.4s;
             position: relative;
             overflow: hidden;
         }
@@ -400,13 +361,13 @@
             background: rgba(79, 70, 229, 0.1);
             color: var(--primary);
             border-radius: 20px;
-            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            font-size: 0.85rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
 
         .course-name {
-            font-size: clamp(1.1rem, 3vw, 1.2rem);
+            font-size: 1.2rem;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 0.75rem;
@@ -418,7 +379,7 @@
             align-items: center;
             gap: 0.5rem;
             color: var(--text-secondary);
-            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+            font-size: 0.95rem;
             margin-bottom: 1rem;
         }
 
@@ -430,7 +391,7 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 0.5rem;
-            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            font-size: 0.9rem;
         }
 
         .progress-bar {
@@ -447,50 +408,39 @@
             transition: width 1s ease;
         }
 
-        /* الشريط الجانبي */
+        /* Sidebar */
         .sidebar {
             position: fixed;
             right: 0;
             top: 0;
-            width: var(--sidebar-width);
+            width: 300px;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(25px);
             border-left: 1px solid var(--border-color);
-            padding: clamp(1rem, 3vw, 2rem);
+            padding: 2rem;
             z-index: 100;
             overflow-y: auto;
             box-shadow: -5px 0 25px rgba(0, 0, 0, 0.05);
-            transform: translateX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 3px;
         }
 
         .brand {
             text-align: center;
-            padding-bottom: clamp(1.5rem, 4vw, 2rem);
+            padding-bottom: 2rem;
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 2rem;
         }
 
         .brand-logo {
-            width: clamp(60px, 12vw, 80px);
-            height: clamp(60px, 12vw, 80px);
+            width: 80px;
+            height: 80px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: clamp(18px, 4vw, 24px);
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 1rem;
-            font-size: clamp(1.75rem, 5vw, 2.2rem);
+            font-size: 2.2rem;
             color: white;
             box-shadow: 0 10px 30px -5px rgba(79, 70, 229, 0.4);
             animation: float-logo 4s ease-in-out infinite;
@@ -502,7 +452,7 @@
         }
 
         .brand h2 {
-            font-size: clamp(1.4rem, 4vw, 1.6rem);
+            font-size: 1.6rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -511,18 +461,18 @@
 
         .brand p {
             color: var(--text-secondary);
-            font-size: clamp(0.75rem, 2vw, 0.85rem);
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
-        /* بطاقة الملف الشخصي */
+        /* Profile Card */
         .profile-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: clamp(1.25rem, 4vw, 1.75rem);
+            border-radius: 24px;
+            padding: 1.75rem;
             text-align: center;
-            margin-bottom: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: 2rem;
             box-shadow: 0 4px 15px var(--shadow);
             position: relative;
             overflow: hidden;
@@ -539,8 +489,8 @@
         }
 
         .profile-avatar {
-            width: clamp(70px, 15vw, 90px);
-            height: clamp(70px, 15vw, 90px);
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(124, 58, 237, 0.15));
             border: 3px solid rgba(79, 70, 229, 0.2);
@@ -548,22 +498,21 @@
             align-items: center;
             justify-content: center;
             margin: 0 auto 1rem;
-            font-size: clamp(2rem, 6vw, 2.5rem);
+            font-size: 2.5rem;
             color: var(--primary);
             box-shadow: 0 4px 15px rgba(79, 70, 229, 0.2);
         }
 
         .profile-name {
-            font-size: clamp(1.1rem, 3vw, 1.25rem);
+            font-size: 1.25rem;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 0.25rem;
-            word-break: break-word;
         }
 
         .profile-id {
             color: var(--text-secondary);
-            font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+            font-size: 0.9rem;
             font-family: monospace;
             font-weight: 600;
             background: rgba(79, 70, 229, 0.1);
@@ -571,13 +520,10 @@
             border-radius: 20px;
             display: inline-block;
             margin-bottom: 0.5rem;
-            max-width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .profile-major {
-            font-size: clamp(0.8rem, 2.2vw, 0.85rem);
+            font-size: 0.85rem;
             color: var(--primary);
             font-weight: 700;
             padding: 0.25rem 0.75rem;
@@ -598,18 +544,16 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: clamp(0.75rem, 2.5vw, 1rem) clamp(1rem, 3vw, 1.25rem);
+            padding: 1rem 1.25rem;
             color: var(--text-secondary);
             text-decoration: none;
             border-radius: 16px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             border: 1px solid transparent;
             font-weight: 700;
             background: transparent;
             cursor: pointer;
             width: 100%;
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            min-height: 48px;
         }
 
         .nav-link:hover, .nav-link.active {
@@ -623,68 +567,35 @@
         .nav-link i {
             width: 24px;
             text-align: center;
-            font-size: clamp(1.1rem, 3vw, 1.2rem);
-            flex-shrink: 0;
+            font-size: 1.2rem;
         }
 
-        .nav-link span {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* المحتوى الرئيسي */
         .main-content {
-            margin-right: var(--sidebar-width);
-            padding: clamp(1rem, 3vw, 2rem);
+            margin-right: 300px;
+            padding: 2rem;
             min-height: 100vh;
             position: relative;
             z-index: 1;
-            transition: margin-right 0.3s ease;
         }
 
-        /* زر قائمة الجوال */
-        .mobile-menu-btn {
-            display: none;
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            width: 48px;
-            height: 48px;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            z-index: 150;
-            cursor: pointer;
-            box-shadow: 0 4px 12px var(--shadow);
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            color: var(--primary);
-        }
-
-        /* الشريط العلوي */
         .top-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 2.5rem;
             background: var(--bg-card);
-            padding: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 4vw, 2rem);
-            border-radius: var(--border-radius);
+            padding: 1.5rem 2rem;
+            border-radius: 24px;
             border: 1px solid var(--border-color);
             box-shadow: 0 4px 20px var(--shadow);
             backdrop-filter: blur(10px);
-            flex-wrap: wrap;
-            gap: 1rem;
         }
 
         .welcome-text h1 {
-            font-size: clamp(1.25rem, 4vw, 1.8rem);
+            font-size: 1.8rem;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 0.25rem;
-            line-height: 1.3;
         }
 
         .welcome-text h1 span {
@@ -696,7 +607,7 @@
 
         .date-display {
             color: var(--text-secondary);
-            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+            font-size: 0.95rem;
             font-weight: 600;
         }
 
@@ -706,20 +617,18 @@
         }
 
         .btn-action {
-            width: clamp(40px, 10vw, 45px);
-            height: clamp(40px, 10vw, 45px);
+            width: 45px;
+            height: 45px;
             border-radius: 12px;
             background: var(--bg-secondary);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1rem, 2.5vw, 1.1rem);
-            min-width: 44px;
-            min-height: 44px;
+            font-size: 1.1rem;
         }
 
         .btn-action:hover {
@@ -729,19 +638,18 @@
             transform: translateY(-2px);
         }
 
-        /* شبكة لوحة التحكم */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-            gap: clamp(1rem, 3vw, 1.5rem);
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
         }
 
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: clamp(1.25rem, 4vw, 1.75rem);
-            transition: all 0.4s ease;
+            border-radius: 24px;
+            padding: 1.75rem;
+            transition: all 0.4s;
             box-shadow: 0 4px 15px var(--shadow);
             position: relative;
             overflow: hidden;
@@ -756,7 +664,7 @@
             height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--secondary));
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.4s;
         }
 
         .card:hover::before {
@@ -772,34 +680,30 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(1rem, 3vw, 1.5rem);
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .card-title {
-            font-size: clamp(1rem, 3vw, 1.15rem);
+            font-size: 1.15rem;
             font-weight: 800;
             color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 0.75rem;
-            flex-wrap: wrap;
         }
 
         .stat-value {
-            font-size: clamp(2rem, 6vw, 2.5rem);
+            font-size: 2.5rem;
             font-weight: 900;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
-            line-height: 1.2;
         }
 
         .stat-label {
             color: var(--text-secondary);
-            font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+            font-size: 0.95rem;
             font-weight: 600;
         }
 
@@ -813,14 +717,12 @@
 
         .progress-ring {
             position: relative;
-            width: clamp(120px, 30vw, 140px);
-            height: clamp(120px, 30vw, 140px);
+            width: 140px;
+            height: 140px;
         }
 
         .progress-ring svg {
             transform: rotate(-90deg);
-            width: 100%;
-            height: 100%;
         }
 
         .progress-ring-bg {
@@ -843,346 +745,32 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: clamp(1.5rem, 5vw, 2rem);
+            font-size: 2rem;
             font-weight: 900;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .progress-label {
-            font-size: clamp(0.9rem, 2.5vw, 1rem);
-            font-weight: 700;
-            color: var(--text-secondary);
-        }
-
         .chart-container {
             position: relative;
-            height: clamp(200px, 40vw, 250px);
+            height: 250px;
             width: 100%;
-            min-height: 200px;
         }
 
-        .hidden { 
-            display: none !important; 
+        .hidden { display: none !important; }
+
+        @media (max-width: 968px) {
+            .sidebar { transform: translateX(100%); transition: transform 0.3s; }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-right: 0; }
+            .modal { padding: 2rem; }
+            .majors-grid { grid-template-columns: 1fr; }
         }
 
-        /* شريط التنقل السفلي للجوال */
-        .bottom-nav {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg-card);
-            border-top: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            z-index: 100;
-            box-shadow: 0 -4px 20px var(--shadow);
-            justify-content: space-around;
-            align-items: center;
-            height: 64px;
-        }
-
-        .bottom-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.25rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            padding: 0.5rem;
-            min-width: 64px;
-        }
-
-        .bottom-nav-item i {
-            font-size: 1.25rem;
-        }
-
-        .bottom-nav-item.active {
-            color: var(--primary);
-        }
-
-        .bottom-nav-item:hover {
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        /* Media Queries متقدمة */
-        
-        /* تابلت وأصغر */
-        @media (max-width: 1024px) {
-            .sidebar {
-                transform: translateX(100%);
-                width: 280px;
-                box-shadow: -5px 0 30px rgba(0,0,0,0.2);
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-right: 0;
-                padding-bottom: 80px; /* مساحة للشريط السفلي */
-            }
-
-            .mobile-menu-btn {
-                display: flex;
-            }
-
-            .bottom-nav {
-                display: flex;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
-            }
-        }
-
-        /* الهواتف */
-        @media (max-width: 768px) {
-            :root {
-                --border-radius: 16px;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .courses-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .majors-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .top-bar {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
-
-            .welcome-text h1 {
-                font-size: 1.25rem;
-            }
-
-            .courses-header {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-
-            .btn-change-major {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .card {
-                padding: 1.25rem;
-            }
-
-            .modal {
-                margin: 0.5rem;
-                padding: 1.5rem;
-                border-radius: 20px;
-            }
-
-            .modal-title {
-                font-size: 1.25rem;
-            }
-        }
-
-        /* هواتف صغيرة جداً */
-        @media (max-width: 480px) {
-            html {
-                font-size: 14px;
-            }
-
-            .dashboard-grid {
-                gap: 0.75rem;
-            }
-
-            .card {
-                padding: 1rem;
-                border-radius: 16px;
-            }
-
-            .stat-value {
-                font-size: 1.75rem;
-            }
-
-            .major-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-
-            .progress-ring {
-                width: 100px;
-                height: 100px;
-            }
-
-            .progress-text {
-                font-size: 1.25rem;
-            }
-
-            .btn-confirm {
-                padding: 0.875rem;
-                font-size: 0.95rem;
-            }
-
-            .nav-link {
-                padding: 0.75rem 1rem;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* شاشات عريضة جداً */
-        @media (min-width: 1400px) {
-            .dashboard-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .courses-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-
-            .majors-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* طباعة */
-        @media print {
-            .sidebar, .bottom-nav, .mobile-menu-btn, .btn-action, .btn-change-major {
-                display: none !important;
-            }
-
-            .main-content {
-                margin: 0 !important;
-                padding: 0 !important;
-            }
-
-            .card {
-                break-inside: avoid;
-                box-shadow: none;
-                border: 1px solid #ddd;
-            }
-        }
-
-        /* تقليل الحركة للمستخدمين الحساسين */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* دعم الشاشات العمودية والأفقية */
-        @media (orientation: landscape) and (max-height: 600px) {
-            .sidebar {
-                padding-top: 1rem;
-                padding-bottom: 1rem;
-            }
-
-            .brand {
-                padding-bottom: 1rem;
-                margin-bottom: 1rem;
-            }
-
-            .brand-logo {
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
-            }
-
-            .profile-card {
-                padding: 1rem;
-                margin-bottom: 1rem;
-            }
-
-            .profile-avatar {
-                width: 60px;
-                height: 60px;
-                font-size: 1.5rem;
-            }
-        }
-
-        /* تحسين الوصول */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        /* تركيز الوصول */
-        *:focus-visible {
-            outline: 2px solid var(--primary);
-            outline-offset: 2px;
-        }
-
-        /* تحسين التمرير */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--text-secondary);
-        }
-
-        /* أنماط إضافية للرسوم المتحركة */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(-100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(-100%); opacity: 1; }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .animate-fadeIn {
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        /* حاوية مرنة للرسوم البيانية */
-        .chart-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            min-height: 200px;
+        @media (max-width: 640px) {
+            .courses-grid { grid-template-columns: 1fr; }
+            .top-bar { flex-direction: column; gap: 1rem; text-align: center; }
         }
     </style>
 </head>
@@ -1192,79 +780,71 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <!-- زر القائمة للجوال -->
-    <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="فتح القائمة">
-        <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- طبقة تعتيم للقائمة الجانبية على الجوال -->
-    <div class="sidebar-overlay" onclick="toggleSidebar()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 99;"></div>
-
-    <!-- النافذة المنبثقة لاختيار التخصص -->
-    <div class="modal-overlay" id="majorModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <!-- Major Selection Modal -->
+    <div class="modal-overlay" id="majorModal">
         <div class="modal">
             <div class="modal-header">
-                <h2 class="modal-title" id="modalTitle">اختيار التخصص الدراسي</h2>
+                <h2 class="modal-title">اختيار التخصص الدراسي</h2>
                 <p class="modal-subtitle">اختر تخصصك لعرض المقررات الدراسية الخاصة بك</p>
             </div>
             
-            <div class="majors-grid" id="majorsGrid" role="radiogroup" aria-label="التخصصات المتاحة">
-                <div class="major-card" data-major="cs" onclick="selectMajor('cs')" role="radio" aria-checked="false" tabindex="0">
+            <div class="majors-grid" id="majorsGrid">
+                <div class="major-card" data-major="cs" onclick="selectMajor('cs')">
                     <div class="major-icon">
-                        <i class="fas fa-brain" aria-hidden="true"></i>
+                        <i class="fas fa-brain"></i>
                     </div>
                     <h3 class="major-title">علوم الحاسب والذكاء الاصطناعي</h3>
                     <p class="major-desc">برمجة، تعلم آلي، شبكات عصبية، ومعالجة اللغات الطبيعية</p>
                 </div>
 
-                <div class="major-card" data-major="cyber" onclick="selectMajor('cyber')" role="radio" aria-checked="false" tabindex="0">
+                <div class="major-card" data-major="cyber" onclick="selectMajor('cyber')">
                     <div class="major-icon">
-                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3 class="major-title">الأمن السيبراني</h3>
                     <p class="major-desc">حماية الشبكات، اختبار اختراق، تحليل البرمجيات الخبيثة</p>
                 </div>
 
-                <div class="major-card" data-major="data" onclick="selectMajor('data')" role="radio" aria-checked="false" tabindex="0">
+                <div class="major-card" data-major="data" onclick="selectMajor('data')">
                     <div class="major-icon">
-                        <i class="fas fa-database" aria-hidden="true"></i>
+                        <i class="fas fa-database"></i>
                     </div>
                     <h3 class="major-title">علم البيانات</h3>
                     <p class="major-desc">تحليل البيانات، تعدين البيانات، الإحصاء التطبيقي</p>
                 </div>
 
-                <div class="major-card" data-major="eng" onclick="selectMajor('eng')" role="radio" aria-checked="false" tabindex="0">
+                <div class="major-card" data-major="eng" onclick="selectMajor('eng')">
                     <div class="major-icon">
-                        <i class="fas fa-cogs" aria-hidden="true"></i>
+                        <i class="fas fa-cogs"></i>
                     </div>
                     <h3 class="major-title">الهندسة المتقدمة</h3>
                     <p class="major-desc">هندسة الروبوتات، الطاقة المتجددة، المواد الذكية</p>
                 </div>
 
-                <div class="major-card" data-major="med" onclick="selectMajor('med')" role="radio" aria-checked="false" tabindex="0">
+                <div class="major-card" data-major="med" onclick="selectMajor('med')">
                     <div class="major-icon">
-                        <i class="fas fa-heartbeat" aria-hidden="true"></i>
+                        <i class="fas fa-heartbeat"></i>
                     </div>
                     <h3 class="major-title">الطب والعلوم الصحية</h3>
                     <p class="major-desc">الطب البشري، التمريض، الصيدلة، والبحث الطبي</p>
                 </div>
 
-                <div class="major-card" data-major="business" onclick="selectMajor('business')" role="radio" aria-checked="false" tabindex="0">
+                <div class="major-card" data-major="business" onclick="selectMajor('business')">
                     <div class="major-icon">
-                        <i class="fas fa-chart-line" aria-hidden="true"></i>
+                        <i class="fas fa-chart-line"></i>
                     </div>
                     <h3 class="major-title">إدارة الأعمال الرقمية</h3>
                     <p class="major-desc">التجارة الإلكترونية، التسويق الرقمي، ريادة الأعمال</p>
                 </div>
             </div>
 
-            <button class="btn-confirm" id="confirmBtn" onclick="confirmMajor()" disabled>
+            <button class="btn-confirm" id="confirmBtn" onclick="confirmMajor()">
                 تأكيد الاختيار
             </button>
         </div>
     </div>
 
-    <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+    <svg width="0" height="0" style="position: absolute;">
         <defs>
             <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
@@ -1273,11 +853,10 @@
         </defs>
     </svg>
 
-    <!-- القائمة الجانبية -->
-    <aside class="sidebar" id="sidebar" role="navigation" aria-label="القائمة الرئيسية">
+    <aside class="sidebar">
         <div class="brand">
             <div class="brand-logo">
-                <i class="fas fa-atom" aria-hidden="true"></i>
+                <i class="fas fa-atom"></i>
             </div>
             <h2>MGU</h2>
             <p>جامعة ماجد الشعباني</p>
@@ -1285,7 +864,7 @@
 
         <div class="profile-card">
             <div class="profile-avatar">
-                <i class="fas fa-user-graduate" aria-hidden="true"></i>
+                <i class="fas fa-user-graduate"></i>
             </div>
             <div class="profile-name" id="profileName">--</div>
             <div class="profile-id" id="profileId">--</div>
@@ -1294,51 +873,50 @@
         
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="#" class="nav-link active" onclick="showSection('dashboard', event)" aria-current="page">
-                    <i class="fas fa-home" aria-hidden="true"></i>
+                <a href="#" class="nav-link active" onclick="showSection('dashboard', event)">
+                    <i class="fas fa-home"></i>
                     <span>الرئيسية</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" onclick="showSection('courses', event)">
-                    <i class="fas fa-book" aria-hidden="true"></i>
+                    <i class="fas fa-book"></i>
                     <span>المقررات</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" onclick="showSection('performance', event)">
-                    <i class="fas fa-chart-line" aria-hidden="true"></i>
+                    <i class="fas fa-chart-line"></i>
                     <span>الأداء</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#" class="nav-link" style="margin-top: 2rem; color: var(--danger);" onclick="logout()">
-                    <i class="fas fa-power-off" aria-hidden="true"></i>
+                    <i class="fas fa-power-off"></i>
                     <span>خروج</span>
                 </a>
             </li>
         </ul>
     </aside>
 
-    <!-- المحتوى الرئيسي -->
-    <main class="main-content" role="main">
+    <main class="main-content">
         <div class="top-bar">
             <div class="welcome-text">
                 <h1>مرحباً، <span id="welcomeName">--</span> 👋</h1>
                 <div class="date-display" id="currentDate">--</div>
             </div>
             <div class="top-actions">
-                <button class="btn-action" title="الإشعارات" aria-label="الإشعارات">
-                    <i class="fas fa-bell" aria-hidden="true"></i>
+                <button class="btn-action" title="الإشعارات">
+                    <i class="fas fa-bell"></i>
                 </button>
-                <button class="btn-action" onclick="logout()" title="خروج" aria-label="تسجيل الخروج">
-                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                <button class="btn-action" onclick="logout()" title="خروج">
+                    <i class="fas fa-sign-out-alt"></i>
                 </button>
             </div>
         </div>
 
-        <!-- قسم لوحة التحكم -->
-        <div id="dashboardSection" role="tabpanel" aria-labelledby="tab-dashboard">
+        <!-- Dashboard Section -->
+        <div id="dashboardSection">
             <div class="dashboard-grid">
                 <div class="card">
                     <div class="card-header">
@@ -1346,7 +924,7 @@
                             <div class="stat-value">87%</div>
                             <div class="stat-label">المعدل التراكمي</div>
                         </div>
-                        <i class="fas fa-chart-pie" style="font-size: clamp(1.75rem, 5vw, 2.5rem); color: var(--primary); opacity: 0.2;" aria-hidden="true"></i>
+                        <i class="fas fa-chart-pie" style="font-size: 2.5rem; color: var(--primary); opacity: 0.2;"></i>
                     </div>
                 </div>
 
@@ -1356,7 +934,7 @@
                             <div class="stat-value" id="coursesCount">0</div>
                             <div class="stat-label">مقررات هذا الفصل</div>
                         </div>
-                        <i class="fas fa-book-open" style="font-size: clamp(1.75rem, 5vw, 2.5rem); color: var(--accent); opacity: 0.2;" aria-hidden="true"></i>
+                        <i class="fas fa-book-open" style="font-size: 2.5rem; color: var(--accent); opacity: 0.2;"></i>
                     </div>
                 </div>
 
@@ -1366,14 +944,14 @@
                             <div class="stat-value" id="hoursCount">0</div>
                             <div class="stat-label">ساعة معتمدة</div>
                         </div>
-                        <i class="fas fa-clock" style="font-size: clamp(1.75rem, 5vw, 2.5rem); color: var(--warning); opacity: 0.2;" aria-hidden="true"></i>
+                        <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--warning); opacity: 0.2;"></i>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="progress-container">
                         <div class="progress-ring">
-                            <svg viewBox="0 0 140 140" preserveAspectRatio="xMidYMid meet">
+                            <svg width="140" height="140">
                                 <circle class="progress-ring-bg" cx="70" cy="70" r="60"></circle>
                                 <circle class="progress-ring-fill" cx="70" cy="70" r="60" 
                                         stroke-dasharray="377" stroke-dashoffset="37.7"></circle>
@@ -1384,77 +962,55 @@
                     </div>
                 </div>
 
-                <div class="card" style="grid-column: 1 / -1;">
+                <div class="card" style="grid-column: span 2;">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <i class="fas fa-chart-area" aria-hidden="true"></i>
+                            <i class="fas fa-chart-area"></i>
                             أداء المقررات الدراسية
                         </h3>
                     </div>
                     <div class="chart-container">
-                        <div class="chart-wrapper">
-                            <canvas id="performanceChart"></canvas>
-                        </div>
+                        <canvas id="performanceChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- قسم المقررات -->
-        <div id="coursesSection" class="hidden" role="tabpanel" aria-labelledby="tab-courses">
+        <!-- Courses Section -->
+        <div id="coursesSection" class="hidden">
             <div class="courses-section">
                 <div class="courses-header">
                     <h3 class="courses-title">
-                        <i class="fas fa-book" aria-hidden="true"></i>
+                        <i class="fas fa-book"></i>
                         مقررات التخصص
                     </h3>
                     <button class="btn-change-major" onclick="openMajorModal()">
-                        <i class="fas fa-exchange-alt" aria-hidden="true"></i>
+                        <i class="fas fa-exchange-alt"></i>
                         تغيير التخصص
                     </button>
                 </div>
                 <div class="courses-grid" id="coursesContainer">
-                    <!-- سيتم إدراج المقررات هنا ديناميكياً -->
+                    <!-- Courses will be inserted here dynamically -->
                 </div>
             </div>
         </div>
 
-        <!-- قسم الأداء -->
-        <div id="performanceSection" class="hidden" role="tabpanel" aria-labelledby="tab-performance">
+        <!-- Performance Section -->
+        <div id="performanceSection" class="hidden">
             <div class="card">
                 <h3 class="card-title" style="margin-bottom: 1.5rem;">
-                    <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                    <i class="fas fa-chart-bar"></i>
                     تقرير الأداء الأكاديمي
                 </h3>
-                <p style="color: var(--text-secondary); text-align: center; padding: clamp(2rem, 6vw, 3rem);">
+                <p style="color: var(--text-secondary); text-align: center; padding: 3rem;">
                     قريباً - سيتم عرض التقرير التفصيلي هنا
                 </p>
             </div>
         </div>
     </main>
 
-    <!-- شريط التنقل السفلي للجوال -->
-    <nav class="bottom-nav" role="navigation" aria-label="التنقل السفلي">
-        <a href="#" class="bottom-nav-item active" onclick="showSection('dashboard', event)" aria-current="page">
-            <i class="fas fa-home" aria-hidden="true"></i>
-            <span>الرئيسية</span>
-        </a>
-        <a href="#" class="bottom-nav-item" onclick="showSection('courses', event)">
-            <i class="fas fa-book" aria-hidden="true"></i>
-            <span>المقررات</span>
-        </a>
-        <a href="#" class="bottom-nav-item" onclick="showSection('performance', event)">
-            <i class="fas fa-chart-line" aria-hidden="true"></i>
-            <span>الأداء</span>
-        </a>
-        <a href="#" class="bottom-nav-item" onclick="logout()">
-            <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
-            <span>خروج</span>
-        </a>
-    </nav>
-
     <script>
-        // قاعدة بيانات التخصصات
+        // Courses Database
         const majorsData = {
             cs: {
                 name: 'علوم الحاسب والذكاء الاصطناعي',
@@ -1532,91 +1088,43 @@
 
         let selectedMajor = null;
         let currentStudent = null;
-        let performanceChart = null;
 
-        // التحقق من المصادقة
+        // Check auth
         function init() {
-            try {
-                currentStudent = JSON.parse(sessionStorage.getItem('currentStudent'));
-                if (!currentStudent) {
-                    window.location.href = 'student-login.html';
-                    return;
-                }
-
-                // تعبئة بيانات الطالب
-                document.getElementById('profileName').textContent = currentStudent.name || 'غير معروف';
-                document.getElementById('profileId').textContent = currentStudent.id || '--';
-                document.getElementById('welcomeName').textContent = (currentStudent.name || 'طالب').split(' ')[0];
-                
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                document.getElementById('currentDate').textContent = new Date().toLocaleDateString('ar-SA', options);
-
-                // التحقق من وجود تخصص
-                if (!currentStudent.major) {
-                    openMajorModal();
-                } else {
-                    selectedMajor = currentStudent.major;
-                    updateDashboard();
-                    renderCourses();
-                }
-
-                initChart();
-                logActivity();
-                setupAccessibility();
-            } catch (error) {
-                console.error('Error initializing:', error);
-                showToast('خطأ', 'حدث خطأ في تحميل البيانات', 'error');
+            currentStudent = JSON.parse(sessionStorage.getItem('currentStudent'));
+            if (!currentStudent) {
+                window.location.href = 'student-login.html';
+                return;
             }
-        }
 
-        // إعدادات إمكانية الوصول
-        function setupAccessibility() {
-            // دعم لوحة المفاتيح لبطاقات التخصصات
-            document.querySelectorAll('.major-card').forEach(card => {
-                card.addEventListener('keypress', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        card.click();
-                    }
-                });
-            });
-
-            // مراقبة تغيير حجم النافذة
-            let resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => {
-                    if (performanceChart) {
-                        performanceChart.resize();
-                    }
-                }, 250);
-            });
-        }
-
-        // تبديل القائمة الجانبية على الجوال
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.querySelector('.sidebar-overlay');
+            // Populate student data
+            document.getElementById('profileName').textContent = currentStudent.name;
+            document.getElementById('profileId').textContent = currentStudent.id;
+            document.getElementById('welcomeName').textContent = currentStudent.name.split(' ')[0];
             
-            sidebar.classList.toggle('open');
-            overlay.style.display = sidebar.classList.contains('open') ? 'block' : 'none';
-            
-            // منع التمرير عند فتح القائمة
-            document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : '';
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = new Date().toLocaleDateString('ar-SA', options);
+
+            // Check if student has major
+            if (!currentStudent.major) {
+                openMajorModal();
+            } else {
+                selectedMajor = currentStudent.major;
+                updateDashboard();
+                renderCourses();
+            }
+
+            initChart();
+            logActivity();
         }
 
         function openMajorModal() {
-            const modal = document.getElementById('majorModal');
-            modal.classList.add('active');
+            document.getElementById('majorModal').classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            // إعادة تعيين الاختيار
-            document.querySelectorAll('.major-card').forEach(card => {
-                card.classList.remove('selected');
-                card.setAttribute('aria-checked', 'false');
-            });
+            // Reset selection
+            document.querySelectorAll('.major-card').forEach(card => card.classList.remove('selected'));
             document.getElementById('confirmBtn').classList.remove('active');
-            document.getElementById('confirmBtn').disabled = true;
             selectedMajor = null;
         }
 
@@ -1626,49 +1134,35 @@
         }
 
         function selectMajor(major) {
-            // إزالة الاختيار السابق
-            document.querySelectorAll('.major-card').forEach(card => {
-                card.classList.remove('selected');
-                card.setAttribute('aria-checked', 'false');
-            });
+            // Remove previous selection
+            document.querySelectorAll('.major-card').forEach(card => card.classList.remove('selected'));
             
-            // إضافة الاختيار للبطاقة المنقورة
-            const selectedCard = document.querySelector(`[data-major="${major}"]`);
-            if (selectedCard) {
-                selectedCard.classList.add('selected');
-                selectedCard.setAttribute('aria-checked', 'true');
-            }
+            // Add selection to clicked card
+            document.querySelector(`[data-major="${major}"]`).classList.add('selected');
             
             selectedMajor = major;
-            const confirmBtn = document.getElementById('confirmBtn');
-            confirmBtn.classList.add('active');
-            confirmBtn.disabled = false;
+            document.getElementById('confirmBtn').classList.add('active');
         }
 
         function confirmMajor() {
             if (!selectedMajor) return;
             
-            try {
-                // حفظ في بيانات الطالب
-                currentStudent.major = selectedMajor;
-                sessionStorage.setItem('currentStudent', JSON.stringify(currentStudent));
-                
-                // تحديث localStorage
-                const students = JSON.parse(localStorage.getItem('students')) || [];
-                const index = students.findIndex(s => s.id === currentStudent.id);
-                if (index !== -1) {
-                    students[index].major = selectedMajor;
-                    localStorage.setItem('students', JSON.stringify(students));
-                }
-                
-                closeMajorModal();
-                updateDashboard();
-                renderCourses();
-                showToast('تم اختيار التخصص بنجاح', majorsData[selectedMajor].name, 'success');
-            } catch (error) {
-                console.error('Error saving major:', error);
-                showToast('خطأ', 'فشل في حفظ التخصص', 'error');
+            // Save to student data
+            currentStudent.major = selectedMajor;
+            sessionStorage.setItem('currentStudent', JSON.stringify(currentStudent));
+            
+            // Update localStorage
+            const students = JSON.parse(localStorage.getItem('students')) || [];
+            const index = students.findIndex(s => s.id === currentStudent.id);
+            if (index !== -1) {
+                students[index].major = selectedMajor;
+                localStorage.setItem('students', JSON.stringify(students));
             }
+            
+            closeMajorModal();
+            updateDashboard();
+            renderCourses();
+            showToast('تم اختيار التخصص بنجاح', majorsData[selectedMajor].name, 'success');
         }
 
         function updateDashboard() {
@@ -1689,11 +1183,11 @@
             const major = majorsData[selectedMajor];
             
             container.innerHTML = major.courses.map((course, index) => `
-                <div class="course-card animate-fadeIn" style="animation-delay: ${index * 0.1}s">
+                <div class="course-card" style="animation: fadeIn 0.5s ease ${index * 0.1}s both;">
                     <span class="course-code">${course.code}</span>
                     <h4 class="course-name">${course.name}</h4>
                     <div class="course-hours">
-                        <i class="fas fa-clock" aria-hidden="true"></i>
+                        <i class="fas fa-clock"></i>
                         <span>${course.hours} ساعات معتمدة</span>
                     </div>
                     <div class="course-progress">
@@ -1701,7 +1195,7 @@
                             <span>التقدم</span>
                             <span>${course.progress}%</span>
                         </div>
-                        <div class="progress-bar" role="progressbar" aria-valuenow="${course.progress}" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar">
                             <div class="progress-fill" style="width: ${course.progress}%"></div>
                         </div>
                     </div>
@@ -1710,59 +1204,35 @@
         }
 
         function showSection(section, event) {
-            if (event) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
+            if (event) event.preventDefault();
             
-            // إغلاق القائمة الجانبية على الجوال
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('open')) {
-                toggleSidebar();
-            }
-            
-            // إخفاء جميع الأقسام
+            // Hide all sections
             document.getElementById('dashboardSection').classList.add('hidden');
             document.getElementById('coursesSection').classList.add('hidden');
             document.getElementById('performanceSection').classList.add('hidden');
             
-            // إظهار القسم المحدد
+            // Show selected section
             document.getElementById(section + 'Section').classList.remove('hidden');
             
-            // تحديث روابط التنقل
-            document.querySelectorAll('.nav-link, .bottom-nav-item').forEach(link => {
-                link.classList.remove('active');
-                link.removeAttribute('aria-current');
-            });
-            
+            // Update nav links
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             if (event && event.target) {
-                const target = event.target.closest('.nav-link') || event.target.closest('.bottom-nav-item');
-                if (target) {
-                    target.classList.add('active');
-                    target.setAttribute('aria-current', 'page');
-                }
+                event.target.closest('.nav-link').classList.add('active');
             }
             
-            // تحديث الرسم البياني إذا كان قسم الأداء
-            if (section === 'performance' && performanceChart) {
-                setTimeout(() => performanceChart.update(), 100);
+            // Render courses if courses section
+            if (section === 'courses') {
+                renderCourses();
             }
         }
 
         function initChart() {
-            const ctx = document.getElementById('performanceChart');
-            if (!ctx) return;
-
-            // تدمير الرسم السابق إذا وجد
-            if (performanceChart) {
-                performanceChart.destroy();
-            }
-
-            const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
             gradient.addColorStop(0, 'rgba(79, 70, 229, 0.3)');
             gradient.addColorStop(1, 'rgba(79, 70, 229, 0.0)');
 
-            performanceChart = new Chart(ctx, {
+            new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: ['الأسبوع 1', 'الأسبوع 2', 'الأسبوع 3', 'الأسبوع 4', 'الأسبوع 5', 'الأسبوع 6'],
@@ -1777,48 +1247,24 @@
                         pointBackgroundColor: '#ffffff',
                         pointBorderColor: '#4f46e5',
                         pointBorderWidth: 3,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
+                        pointRadius: 6
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    interaction: {
-                        intersect: false,
-                        mode: 'index'
-                    },
-                    plugins: { 
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: 'rgba(30, 41, 59, 0.9)',
-                            titleFont: { family: 'Tajawal', size: 14 },
-                            bodyFont: { family: 'Tajawal', size: 13 },
-                            padding: 12,
-                            cornerRadius: 8,
-                            displayColors: false
-                        }
-                    },
+                    plugins: { legend: { display: false } },
                     scales: {
                         y: {
                             beginAtZero: false,
                             min: 70,
                             max: 100,
                             grid: { color: 'rgba(148, 163, 184, 0.1)' },
-                            ticks: { 
-                                color: '#64748b', 
-                                font: { family: 'Tajawal', weight: '600', size: 11 },
-                                callback: function(value) {
-                                    return value + '%';
-                                }
-                            }
+                            ticks: { color: '#64748b', font: { family: 'Tajawal', weight: '600' } }
                         },
                         x: {
                             grid: { display: false },
-                            ticks: { 
-                                color: '#64748b', 
-                                font: { family: 'Tajawal', weight: '600', size: 11 }
-                            }
+                            ticks: { color: '#64748b', font: { family: 'Tajawal', weight: '600' } }
                         }
                     }
                 }
@@ -1826,24 +1272,13 @@
         }
 
         function showToast(title, message, type = 'success') {
-            // إزالة التوست السابق إن وجد
-            const existingToast = document.querySelector('.toast-notification');
-            if (existingToast) {
-                existingToast.remove();
-            }
-
+            // Simple toast implementation
             const toast = document.createElement('div');
-            toast.className = 'toast-notification';
-            toast.setAttribute('role', 'alert');
-            toast.setAttribute('aria-live', 'polite');
             toast.style.cssText = `
                 position: fixed;
                 top: 20px;
                 left: 20px;
-                right: 20px;
-                max-width: 400px;
-                margin: 0 auto;
-                background: ${type === 'success' ? 'var(--success)' : type === 'error' ? 'var(--danger)' : 'var(--warning)'};
+                background: ${type === 'success' ? 'var(--success)' : 'var(--danger)'};
                 color: white;
                 padding: 1rem 1.5rem;
                 border-radius: 12px;
@@ -1851,56 +1286,53 @@
                 z-index: 3000;
                 font-weight: 700;
                 animation: slideIn 0.3s ease;
-                text-align: center;
-                font-size: clamp(0.9rem, 2.5vw, 1rem);
             `;
             toast.innerHTML = `<strong>${title}</strong><br>${message}`;
             document.body.appendChild(toast);
             
             setTimeout(() => {
-                toast.style.animation = 'slideOut 0.3s ease forwards';
+                toast.style.animation = 'slideOut 0.3s ease';
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
 
         function logout() {
-            if (confirm('هل أنت متأكد من رغبتك في تسجيل الخروج؟')) {
-                sessionStorage.removeItem('currentStudent');
-                window.location.href = 'index.html';
-            }
+            sessionStorage.removeItem('currentStudent');
+            window.location.href = 'index.html';
         }
 
         function logActivity() {
-            try {
-                const logs = JSON.parse(localStorage.getItem('logs')) || [];
-                logs.push({
-                    type: 'page_view',
-                    studentId: currentStudent?.id,
-                    page: 'student_dashboard',
-                    timestamp: new Date().toISOString(),
-                    userAgent: navigator.userAgent,
-                    screenSize: `${window.innerWidth}x${window.innerHeight}`
-                });
-                // الاحتفاظ بآخر 100 سجل فقط
-                if (logs.length > 100) logs.shift();
-                localStorage.setItem('logs', JSON.stringify(logs));
-            } catch (error) {
-                console.error('Error logging activity:', error);
+            const logs = JSON.parse(localStorage.getItem('logs')) || [];
+            logs.push({
+                type: 'page_view',
+                studentId: currentStudent.id,
+                page: 'student_dashboard',
+                timestamp: new Date().toISOString(),
+                ip: '156.204.11.' + Math.floor(Math.random() * 255)
+            });
+            localStorage.setItem('logs', JSON.stringify(logs));
+        }
+
+        // CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
             }
-        }
+            @keyframes slideIn {
+                from { transform: translateX(-100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(-100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
 
-        // تهيئة عند تحميل الصفحة
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-
-        // معالجة الأخطاء العامة
-        window.onerror = function(msg, url, lineNo, columnNo, error) {
-            console.error('Error: ', msg, ' at ', lineNo, ':', columnNo);
-            return false;
-        };
+        // Initialize
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
 </html>
